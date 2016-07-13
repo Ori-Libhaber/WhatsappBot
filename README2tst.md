@@ -1,2 +1,0 @@
-# WhatsappBot
-WhatsappBot
