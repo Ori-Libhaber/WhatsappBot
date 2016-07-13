@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+from bs4 import BeautifulSoup, SoupStrainer
 import sys
 import time
 from selenium import webdriver
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-GROUP_NAME = "עדי"
+GROUP_NAME = "כדורסל מטומי-שלישי 19:00"
 
 print "input",sys.argv[1]
 if sys.argv[1].find("new")>=0:
@@ -26,20 +26,26 @@ driver.session_id = session_id
 
 
 driver.get('http://web.whatsapp.com');
+
 time.sleep(8) # Let the user actually see something!
 
-groups = driver.find_elements_by_class_name("chat-body")
-for lnk in groups:
-    link = lnk.text.decode("utf-8")
-    if link.find(GROUP_NAME.decode("utf-8"))>=0:
-        lnk.click()
-        break
+str = "//*[@title='"+GROUP_NAME + "']"
+driver.find_element_by_xpath(str).click()
 
-time.sleep(2);
 
+stam = driver.find_element_by_class_name("message-list").find_elements_by_class_name("message-text")
+for pices in stam:
+    print pices.text
+    inr_txt = pices.get_attribute("innerHTML")
+    strt = inr_txt.find("[")
+    end = inr_txt.find("]")
+    print inr_txt[strt:end]
+
+time.sleep(2)
 # Scroll up to get more messages
 icon_refresh = driver.find_element_by_class_name("icon-refresh")
 icon_refresh.click()
+
 
 msg_groups = driver.find_elements_by_class_name("msg");
 
