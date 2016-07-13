@@ -37,6 +37,10 @@ for lnk in groups:
 
 time.sleep(2);
 
+# Scroll up to get more messages
+icon_refresh = driver.find_element_by_class_name("icon-refresh")
+icon_refresh.click()
+
 msg_groups = driver.find_elements_by_class_name("msg");
 
 time.sleep(5) 
