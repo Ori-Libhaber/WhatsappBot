@@ -12,7 +12,7 @@ GROUP_NAME = ["KOKO", "Mybot"]
 dico = {}
 last_text_g = ["","",""]
 last_author_g = ["","",""]
-admin="Yoav"
+admin="Tzachi"
 
 ##GROUP_NAME = "כדורסל מטומי-שלישי 19:00"
 
@@ -47,7 +47,7 @@ def React(id):
 		if(last_text_g[id] == "yes"):
 			sendMessage("Ohh I am in the kitchen")
 
-    if (id == 1 and last_text_g[id] == "can play?"):
+    if (id == 1 and last_text_g[id] == "Can play?"):
         run_poll(driver)
 
 
