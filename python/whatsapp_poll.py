@@ -14,7 +14,7 @@ from oauth2client import tools
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/drive-python-quickstart.json
 SCOPES = 'https://www.googleapis.com/auth/drive'
-CLIENT_SECRET_FILE = 'client_secret.json'
+CLIENT_SECRET_FILE = '/disk4/WhatsappBot/client_secret.json'
 APPLICATION_NAME = 'Drive API Python Quickstart'
 
 # drive file parameters

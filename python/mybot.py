@@ -38,18 +38,22 @@ driver.session_id = session_id
 time.sleep(8) # Let the user actually see something!
 
 def React(id):
-    if(id == 0 and last_author_g[id] != admin):
-		if(last_text_g[id] == "Hi"):
-			sendMessage("Hi")
+	if(id == 0 and last_author_g[id] != admin):
+		if(last_text_g[id] == ""):
+			sendMessage("HeziDaBot:  Hi")
 		if(last_text_g[id] == "When you arrive"):
-			sendMessage("I dont know")
-			sendMessage("Are you done with showers ?")
+			sendMessage("HeziDaBot:  I dont know")
+			sendMessage("HeziDaBot:  Are you done with showers ?")
 		if(last_text_g[id] == "yes"):
-			sendMessage("Ohh I am in the kitchen")
+			sendMessage("HeziDaBot:  Ohh I am in the kitchen")
 
-    if (id == 1 and last_text_g[id] == "Can play?"):
-        run_poll(driver)
-
+	if (id == 1 and last_text_g[id] == "Can play?"):
+		sendMessage("HeziDaBot: Checking....")
+		sendMessage("HeziDaBot: Please be patient")
+		time.sleep(1)
+		run_poll(driver)
+		gotoChat(GROUP_NAME[id])
+		sendMessage("HeziDaBot: Done!")
 
 def gotoChat(chat):
 	str = "//*[@title='" + chat + "']"
