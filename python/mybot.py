@@ -79,9 +79,11 @@ for elem in txt.split("bubble bubble"):
         else:
             authour = prev_auth
     print authour
-  ##  if dico.__contains__(authour):
-
+    arr = dico.get(authour,[authour])
+    arr.append(new_txt[0:end])
+    dico[authour]=arr
     print "========================================"
+
 
 time.sleep(2)
 # Scroll up to get more messages
