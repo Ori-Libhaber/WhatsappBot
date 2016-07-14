@@ -2,31 +2,14 @@ from __future__ import print_function
 import httplib2
 from whatsapp_parser import create_csv_file
 import os
-<<<<<<< Updated upstream
-
-=======
 import sys
->>>>>>> Stashed changes
+
 from apiclient import errors
 from apiclient.http import MediaFileUpload
 from apiclient import discovery
 import oauth2client
 from oauth2client import client
 from oauth2client import tools
-
-<<<<<<< Updated upstream
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
-=======
-##try:
-  ##  import argparse
-  ##  flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-##except ImportError:
-  ##  flags = None
->>>>>>> Stashed changes
 
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/drive-python-quickstart.json
@@ -84,13 +67,9 @@ def csv_to_drive():
         media_body='output.csv').execute()
 
 def main():
-<<<<<<< Updated upstream
-    create_csv_file()
-=======
     ##url = "http://127.0.0.1:46685"
     ##session_id = "e12862f4798e972bc01384d221608610"
     create_csv_file(str(sys.argv[1]),str(sys.argv[2]))
->>>>>>> Stashed changes
     csv_to_drive()
     print("Link to file: "+FILE_LINK)
 

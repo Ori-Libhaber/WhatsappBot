@@ -215,15 +215,9 @@ def parser(dico, driver):
         dico[authour]=arr
         print "========================================"
 
-<<<<<<< Updated upstream
-def create_csv_file():
-    GROUP_NAME = "כדורסל מטומי-שלישי 19:00"
-    url = "http://127.0.0.1:46685"
-    session_id = "e12862f4798e972bc01384d221608610"
-=======
+
 def create_csv_file(url, session_id):
     GROUP_NAME = "כדורסל מטומי-שלישי 19:00"
->>>>>>> Stashed changes
     driver = webdriver.Remote(command_executor=url,desired_capabilities={})
     driver.session_id = session_id
     #driver.get('http://web.whatsapp.com');
