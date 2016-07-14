@@ -3,6 +3,7 @@
 import sys
 import time
 from selenium import webdriver
+from whatsapp_poll import run_poll
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -47,7 +48,7 @@ def React(id):
 			sendMessage("Ohh I am in the kitchen")
 
     if (id == 1 and last_text_g[id] == "can play?"):
-        execfile("python/whatsapp_poll.py " + url + " " + session_id)
+        run_poll(driver)
 
 
 def gotoChat(chat):

@@ -216,10 +216,8 @@ def parser(dico, driver):
         print "========================================"
 
 
-def create_csv_file(url, session_id):
+def create_csv_file(driver):
     GROUP_NAME = "כדורסל מטומי-שלישי 19:00"
-    driver = webdriver.Remote(command_executor=url,desired_capabilities={})
-    driver.session_id = session_id
     #driver.get('http://web.whatsapp.com');
     time.sleep(8) # Let the user actually see something!
     str = "//*[@title='"+GROUP_NAME + "']"

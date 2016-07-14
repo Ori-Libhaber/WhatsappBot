@@ -66,12 +66,7 @@ def csv_to_drive():
         newRevision=1,
         media_body='output.csv').execute()
 
-def main():
-    ##url = "http://127.0.0.1:46685"
-    ##session_id = "e12862f4798e972bc01384d221608610"
-    create_csv_file(str(sys.argv[1]),str(sys.argv[2]))
+def run_poll(driver):
+    create_csv_file(driver)
     csv_to_drive()
     print("Link to file: "+FILE_LINK)
-
-if __name__ == '__main__':
-    main()
