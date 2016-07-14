@@ -37,9 +37,9 @@ driver.find_element_by_xpath(str).click()
 
 # Send message in current chat
 def sendMessage(message):
-	message = driver.find_element_by_class_name("input-container")
-	message.click()
-	message.send_keys(message)
+	msgbox = driver.find_element_by_class_name("input-container")
+	msgbox.click()
+	msgbox.send_keys(message)
 	driver.find_element_by_class_name("icon-send").click()
 
 stam = driver.find_element_by_class_name("message-list").find_elements_by_class_name("message-text")
@@ -74,6 +74,8 @@ for elem in txt.split("bubble bubble"):
     if (authour==""):
         if (elem.find("+972 54-772-0957")>=0):
             authour = "צחי לפידות"
+        elif (elem.find("+972 52-616-3001")>=0):
+            authour = "יואב"
         else:
             authour = prev_auth
     print authour
