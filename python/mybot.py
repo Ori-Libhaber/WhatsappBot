@@ -90,11 +90,32 @@ except:
 else:
 	icon_refresh.click()
 
+def scorllUp():
+	# Scroll up to get more messages
+	try:
+		icon_refresh = driver.find_element_by_class_name("icon-refresh")
+	except:
+		pass
+	else:
+		icon_refresh.click()
 
+# Main loop
+while True:
+	stam = driver.find_element_by_class_name("message-list").find_elements_by_class_name("message-text")
+	for pices in stam:
+		print pices.text
+		inr_txt = pices.get_attribute("innerHTML")
+		strt = inr_txt.find("[")
+		end = inr_txt.find("]")
+		print inr_txt[strt:end]
 
-sendMessage("Hello World!!!")
+	time.sleep(2)
 
-msg_groups = driver.find_elements_by_class_name("msg");
+	scorllUp()
 
-time.sleep(5) 
-#driver.quit()
+	sendMessage("Hello World!!!")
+
+	msg_groups = driver.find_elements_by_class_name("msg");
+
+	time.sleep(5)
+	#driver.quit()
