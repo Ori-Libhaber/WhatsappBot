@@ -1,14 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from bs4 import BeautifulSoup, SoupStrainer
 import sys
 import time
 from selenium import webdriver
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-#GROUP_NAME = "כדורסל מטומי-שלישי 19:00"
+
 GROUP_NAME = "KOKO"
+dico = {}
+##GROUP_NAME = "כדורסל מטומי-שלישי 19:00"
+
 
 print "input",sys.argv[1]
 if sys.argv[1].find("new")>=0:
@@ -41,12 +43,43 @@ def sendMessage(message):
 	driver.find_element_by_class_name("icon-send").click()
 
 stam = driver.find_element_by_class_name("message-list").find_elements_by_class_name("message-text")
-for pices in stam:
-    print pices.text
-    inr_txt = pices.get_attribute("innerHTML")
-    strt = inr_txt.find("[")
-    end = inr_txt.find("]")
-    print inr_txt[strt:end]
+txt = driver.find_element_by_class_name("message-list").get_attribute("innerHTML")
+
+
+txt_find= "inverse-text-direction selectable-text"+'"'+ " dir=" +'"'+"rtl"+'"'+">"
+txt_other_find = "class="+'"'+"emojitext selectable-text"+'"'+" dir="+'"'+"ltr"+'"'+">"
+authour_txt = "<span class="+'"'+"emojitext"+'"'+">"
+prev_auth = ""
+
+for elem in txt.split("bubble bubble"):
+    authour = ""
+    txt_find_len = 50
+    strt = elem.find(txt_find)
+    if (strt<0):
+        strt = elem.find(txt_other_find)
+        if (strt<0):
+            continue
+        txt_find_len = 44
+    new_txt = elem[strt+txt_find_len:]
+    if (new_txt.find("href")>=0):
+        continue
+    end = new_txt.find("<")
+    if (elem.find(authour_txt)>=0):
+        tmp_authour = elem[elem.find(authour_txt)+24:]
+        end_tmp = tmp_authour.find("<")
+        authour = tmp_authour[:end_tmp]
+        prev_auth = authour
+    print elem[elem.find("[")+1:elem.find("]")]
+    print new_txt[0:end]
+    if (authour==""):
+        if (elem.find("+972 54-772-0957")>=0):
+            authour = "צחי לפידות"
+        else:
+            authour = prev_auth
+    print authour
+  ##  if dico.__contains__(authour):
+
+    print "========================================"
 
 time.sleep(2)
 # Scroll up to get more messages
@@ -56,6 +89,7 @@ except:
 	pass
 else:
 	icon_refresh.click()
+
 
 
 sendMessage("Hello World!!!")
