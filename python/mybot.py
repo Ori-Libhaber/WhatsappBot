@@ -44,11 +44,10 @@ def sendMessage(message):
 
 def parser():
 	txt = driver.find_element_by_class_name("message-list").get_attribute("innerHTML")
-	txt_find= "inverse-text-direction selectable-text"+'"'+ " dir=" +'"'+"rtl"+'"'+">"
-	txt_other_find = "class="+'"'+"emojitext selectable-text"+'"'+" dir="+'"'+"ltr"+'"'+">"
-	authour_txt = "<span class="+'"'+"emojitext"+'"'+">"
+	txt_find= "inverse-text-direction selectable-text"
+	txt_other_find = "class=\"emojitext selectable-text\" dir="
+	authour_txt = "<span class=\"emojitext\">"
 	prev_auth = ""
-
 	for elem in txt.split("bubble bubble"):
 		authour = ""
 		txt_find_len = 50
@@ -67,27 +66,21 @@ def parser():
 			end_tmp = tmp_authour.find("<")
 			authour = tmp_authour[:end_tmp]
 			prev_auth = authour
-		print elem[elem.find("[")+1:elem.find("]")]
-		print new_txt[0:end]
-		if (authour==""):
-			if (elem.find("+972 54-772-0957")>=0):
-				authour = "צחי לפידות"
-			elif (elem.find("+972 52-616-3001")>=0):
-				authour = "יואב"
-			else:
-				authour = prev_auth
-		print authour
-		arr = dico.get(authour,[authour])
-	   arr.append(new_txt[0:end])
-	   dico[authour]=arr
-	   print "========================================"
-	  ##  if dico.__contains__(authour):
-
-		print "========================================"
->>>>>>> fix
-
-
-time.sleep(2)
+        print"-----------------------------------------------"
+        print elem[elem.find("[")+1:elem.find("]")]
+        print new_txt[0:end]
+        if (authour==""):
+        	if (elem.find("+972 54-772-0957")>=0):
+        		authour = "צחי לפידות"
+        	elif (elem.find("+972 52-616-3001")>=0):
+        		authour = "יואב"
+        	else:
+        		authour = prev_auth
+        print authour
+        arr = dico.get(authour,[authour])
+        arr.append(new_txt[0:end])
+        dico[authour]=arr
+        print "========================================"
 
 def scorllUp():
 	# Scroll up to get more messages
@@ -101,6 +94,8 @@ def scorllUp():
 
 scorllUp()
 
+message_bank = ["hello", "how r u", "why dont u talk to me","i know u r out there", "this is very rude", "hello"]
+iter = 0
 # Main loop
 while True:
 	parser()
@@ -110,7 +105,9 @@ while True:
 	# Check last message
 
 	# Send relevant message
-	sendMessage("Hello World!!!")
-
+	sendMessage(message_bank[iter])
+	iter+=1
+	if (iter>5):
+		iter = 5
 	time.sleep(5)
 	#driver.quit()
