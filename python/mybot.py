@@ -7,8 +7,12 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-GROUP_NAME = "KOKO"
+GROUP_NAME = ["KOKO", "Mybot"]
 dico = {}
+last_text_g = ["","",""]
+last_author_g = ["","",""]
+admin="Yoav"
+
 ##GROUP_NAME = "כדורסל מטומי-שלישי 19:00"
 
 
@@ -32,8 +36,25 @@ driver.session_id = session_id
 
 time.sleep(8) # Let the user actually see something!
 
-str = "//*[@title='"+GROUP_NAME + "']"
-driver.find_element_by_xpath(str).click()
+def React(id):
+    if(id == 0 and last_author_g[id] != admin):
+		if(last_text_g[id] == "Hi"):
+			sendMessage("Hi")
+		if(last_text_g[id] == "When you arrive"):
+			sendMessage("I dont know")
+			sendMessage("Are you done with showers ?")
+		if(last_text_g[id] == "yes"):
+			sendMessage("Ohh I am in the kitchen")
+
+    if (id == 1 and last_text_g[id] == "can play?"):
+        execfile("python/whatsapp_poll.py " + url + " " + session_id)
+
+
+def gotoChat(chat):
+	str = "//*[@title='" + chat + "']"
+	driver.find_element_by_xpath(str).click()
+	time.sleep(2)
+
 
 # Send message in current chat
 def sendMessage(message):
@@ -66,21 +87,24 @@ def parser():
 			end_tmp = tmp_authour.find("<")
 			authour = tmp_authour[:end_tmp]
 			prev_auth = authour
-        print"-----------------------------------------------"
-        print elem[elem.find("[")+1:elem.find("]")]
-        print new_txt[0:end]
-        if (authour==""):
-        	if (elem.find("+972 54-772-0957")>=0):
-        		authour = "צחי לפידות"
-        	elif (elem.find("+972 52-616-3001")>=0):
-        		authour = "יואב"
-        	else:
-        		authour = prev_auth
-        print authour
-        arr = dico.get(authour,[authour])
-        arr.append(new_txt[0:end])
-        dico[authour]=arr
-        print "========================================"
+	#	print elem[elem.find("[")+1:elem.find("]")]
+	#	print new_txt[0:end]
+		if (authour==""):
+			if (elem.find("+972 54-772-0957")>=0):
+				authour = admin
+			elif (elem.find("+972 52-616-3001")>=0):
+				authour = admin
+			else:
+				authour = prev_auth
+	#	print "A: " + authour
+		arr = dico.get(authour,[authour])
+		arr.append(new_txt[0:end])
+		dico[authour]=arr
+
+
+		last_text_l=new_txt[0:end]
+		last_author_l=authour
+	return last_author_l,last_text_l
 
 def scorllUp():
 	# Scroll up to get more messages
@@ -97,17 +121,21 @@ scorllUp()
 message_bank = ["hello", "how r u", "why dont u talk to me","i know u r out there", "this is very rude", "hello"]
 iter = 0
 # Main loop
+id = 0
 while True:
-	parser()
 
-	time.sleep(2)
+	gotoChat(GROUP_NAME[id])
 
-	# Check last message
+	cur_author,cur_text=last_author_g[id],last_text_g[id]
 
-	# Send relevant message
-	sendMessage(message_bank[iter])
-	iter+=1
-	if (iter>5):
-		iter = 5
-	time.sleep(5)
+	last_author_g[id],last_text_g[id] = parser()
+
+	if(last_author_g[id] != cur_author or last_text_g[id] != cur_text):
+		React(id)
+
+	id = id + 1
+	if(id == 2):
+		id = 0
+
+	time.sleep(4)
 	#driver.quit()
